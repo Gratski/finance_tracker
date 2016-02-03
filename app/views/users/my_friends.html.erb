@@ -1,0 +1,31 @@
+<h1>FRIENDS of <%= current_user.full_name %></h1>
+
+<%= render 'friends/lookup' %>
+
+<%= @friendships.size %>
+
+<% if @friendships.size > 0 %>
+  <table class="table">
+    <thead>
+      <tr>
+         <th>Name</th>
+         <th>Email</th>
+         <th>Actions</th>
+       </tr> 
+    </thead>
+  <% @friendships.each do |friend| %>
+    <tr>
+      <td><%= friend.full_name %></td>
+      <td><%= friend.email %></td>
+      <td>
+        <%= link_to 'view profile', user_path(friend), class: "btn btn-xs btn-primary" %>
+        <%= link_to 'unfriend', friendship_path(friend), method: :delete, class: "btn btn-xs btn-danger" %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  <div class="col-md-12">
+    <h3>You dont have any friends yet, please add some. <%= link_to 'Add friend', my_friends_path, method: :post %></h3>
+  </div>
+<% end %>

@@ -4,8 +4,15 @@ Rails.application.routes.draw do
   resources :user_stocks , except: [:show, :edit, :update]
   root 'welcome#index'
 
-  get 'my_portfolio' => 'users#my_portfolio'
-  get 'search_stocks' => 'stocks#search'
+  resources :users, only: [:show]
+  resources :friendships
+
+  get 'my_portfolio'   => 'users#my_portfolio'
+  get 'search_stocks'  => 'stocks#search'
+  get 'search_friends' => 'users#search'
+  get 'my_friends'     => 'users#my_friends'
+  post 'my_friends'    => 'users#add_friend'
+  delete 'my_friends'  => 'users#unfriend'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
